@@ -10,10 +10,10 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>mvc</artifactId>
+    <artifactId>flux-data</artifactId>
 
     <properties>
-        <image-name>cgroups-java-mvc:latest</image-name>
+        <image-name>cgroups-java-fluxmagic:latest</image-name>
     </properties>
 
     <dependencies>
@@ -23,20 +23,40 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>cockroachdb</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>r2dbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-r2dbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.r2dbc</groupId>
+            <artifactId>r2dbc-postgresql</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.r2dbc</groupId>
+            <artifactId>r2dbc-pool</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
         </dependency>
     </dependencies>
 
@@ -68,6 +88,7 @@
                             <jvmFlag>-Xms512m</jvmFlag>
                             <jvmFlag>-Xmn300m</jvmFlag>
                             <jvmFlag>-XX:+UseSerialGC</jvmFlag>
+                            <jvmFlag>-Dreactor.netty.ioWorkerCount=1</jvmFlag>
                         </jvmFlags>
                     </container>
                 </configuration>
