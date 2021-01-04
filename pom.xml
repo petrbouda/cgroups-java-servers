@@ -80,6 +80,12 @@
                 <artifactId>logback-classic</artifactId>
                 <version>${logback.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>pbouda.jfr</groupId>
+                <artifactId>netty-http-recorder</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

@@ -58,6 +58,11 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>pbouda.jfr</groupId>
+            <artifactId>netty-http-recorder</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -89,6 +94,7 @@
                             <jvmFlag>-Xmn300m</jvmFlag>
                             <jvmFlag>-XX:+UseSerialGC</jvmFlag>
                             <jvmFlag>-Dreactor.netty.ioWorkerCount=1</jvmFlag>
+                            <jvmFlag>-Dreactor.netty.http.server.accessLogEnabled=true</jvmFlag>
                         </jvmFlags>
                     </container>
                 </configuration>

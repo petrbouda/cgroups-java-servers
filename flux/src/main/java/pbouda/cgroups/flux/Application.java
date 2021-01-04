@@ -10,9 +10,12 @@ import org.springframework.boot.Banner;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.boot.web.embedded.netty.NettyServerCustomizer;
+import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.r2dbc.core.DatabaseClient;
+import pbouda.jfr.nettyhttp.JfrHttpServerMetricsRecorder;
 import reactor.netty.http.HttpResources;
 import reactor.netty.resources.LoopResources;
 import reactor.netty.tcp.TcpResources;
@@ -20,7 +23,7 @@ import reactor.netty.tcp.TcpResources;
 import java.time.Duration;
 
 @SpringBootApplication
-public class Application {
+public class Application implements ApplicationListener<ApplicationStartedEvent> {
 
     public static void main(String[] args) {
         TcpResources tcpResources = TcpResources.get();
@@ -80,5 +83,19 @@ public class Application {
         return DatabaseClient.builder()
                 .connectionFactory(connectionPool)
                 .build();
+    }
+
+    @Override
+    public void onApplicationEvent(ApplicationStartedEvent event) {
+//        ExecutorService executor = Executors.newSingleThreadExecutor(new NamedThreadFactory("jfr"));
+//        executor.submit(() -> {
+//            try (RecordingStream es = new RecordingStream()) {
+//                es.enable("http.Exchange");
+//                es.onEvent("http.Exchange", e -> {
+//                    System.out.println("Duration: " + e.getDuration().toMillis() + " - Response-time: " + e.getDuration("responseTime").toMillis());
+//                });
+//                es.start();
+//            }
+//        });
     }
 }
