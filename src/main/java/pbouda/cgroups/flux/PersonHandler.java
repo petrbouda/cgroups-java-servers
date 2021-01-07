@@ -3,7 +3,6 @@ package pbouda.cgroups.flux;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
-import pbouda.cgroups.common.Helpers;
 import reactor.core.publisher.Mono;
 
 public class PersonHandler {

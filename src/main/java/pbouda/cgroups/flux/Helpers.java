@@ -1,4 +1,4 @@
-package pbouda.cgroups.common;
+package pbouda.cgroups.flux;
 
 import java.util.Collection;
 import java.util.concurrent.ThreadLocalRandom;

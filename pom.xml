@@ -7,15 +7,6 @@
     <groupId>pbouda</groupId>
     <artifactId>cgroups-java-servers</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
-
-    <modules>
-        <module>common</module>
-        <module>mvc</module>
-        <module>flux</module>
-        <module>rsocket</module>
-        <module>client</module>
-    </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -31,18 +22,10 @@
         <springboot.version>2.4.1</springboot.version>
 
         <java-uuid-generator.version>4.0</java-uuid-generator.version>
-        <lorem.version>2.1</lorem.version>
-        <logback.version>1.2.3</logback.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>common</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -50,44 +33,67 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <dependency>
-                <groupId>io.projectreactor</groupId>
-                <artifactId>reactor-core</artifactId>
-                <version>${reactor.version}</version>
-            </dependency>
-
-            <!-- TEST-CONTAINERS -->
-
-            <dependency>
-                <groupId>org.testcontainers</groupId>
-                <artifactId>cockroachdb</artifactId>
-                <version>${testcontainers.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.testcontainers</groupId>
-                <artifactId>r2dbc</artifactId>
-                <version>${testcontainers.version}</version>
-            </dependency>
-
-            <!-- UTILS -->
-            <dependency>
-                <groupId>com.thedeanda</groupId>
-                <artifactId>lorem</artifactId>
-                <version>${lorem.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>${logback.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>pbouda.jfr</groupId>
-                <artifactId>netty-http-recorder</artifactId>
-                <version>1.0-SNAPSHOT</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-r2dbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.r2dbc</groupId>
+            <artifactId>r2dbc-postgresql</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.r2dbc</groupId>
+            <artifactId>r2dbc-pool</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>cockroachdb</artifactId>
+            <version>${testcontainers.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>r2dbc</artifactId>
+            <version>${testcontainers.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>pbouda.jfr</groupId>
+            <artifactId>netty-http-recorder</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>pbouda.jfr</groupId>
+            <artifactId>cgroups-recorder</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
@@ -100,45 +106,46 @@
                     <target>15</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>2.7.0</version>
+                <configuration>
+                    <from>
+                        <image>docker://openjdk-15-dbg-asyncprofiler:latest</image>
+                    </from>
+                    <to>
+                        <image>jfr-test:latest</image>
+                    </to>
+                    <container>
+                        <jvmFlags>
+                            <jvmFlag>-XX:+UnlockDiagnosticVMOptions</jvmFlag>
+                            <jvmFlag>-XX:+DebugNonSafepoints</jvmFlag>
+                            <jvmFlag>-Dcom.sun.management.jmxremote.rmi.port=9090</jvmFlag>
+                            <jvmFlag>-Dcom.sun.management.jmxremote=true</jvmFlag>
+                            <jvmFlag>-Dcom.sun.management.jmxremote.port=9090</jvmFlag>
+                            <jvmFlag>-Dcom.sun.management.jmxremote.ssl=false</jvmFlag>
+                            <jvmFlag>-Dcom.sun.management.jmxremote.authenticate=false</jvmFlag>
+                            <jvmFlag>-Dcom.sun.management.jmxremote.local.only=false</jvmFlag>
+                            <jvmFlag>-Djava.rmi.server.hostname=localhost</jvmFlag>
+                            <jvmFlag>-Xmx512m</jvmFlag>
+                            <jvmFlag>-Xms512m</jvmFlag>
+                            <jvmFlag>-Xmn300m</jvmFlag>
+                            <jvmFlag>-XX:+UseSerialGC</jvmFlag>
+                            <jvmFlag>-Dreactor.netty.ioWorkerCount=1</jvmFlag>
+                            <jvmFlag>-Dreactor.netty.http.server.accessLogEnabled=true</jvmFlag>
+                        </jvmFlags>
+                    </container>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>dockerBuild</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
-
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>com.google.cloud.tools</groupId>
-                    <artifactId>jib-maven-plugin</artifactId>
-                    <version>2.7.0</version>
-                    <configuration>
-                        <from>
-                            <image>docker://openjdk-15-dbg-asyncprofiler:latest</image>
-                        </from>
-                        <to>
-                            <image>${image-name}</image>
-                        </to>
-                        <container>
-                            <jvmFlags>
-                                <jvmFlag>-XX:+UnlockDiagnosticVMOptions</jvmFlag>
-                                <jvmFlag>-XX:+DebugNonSafepoints</jvmFlag>
-                                <jvmFlag>-Dcom.sun.management.jmxremote.rmi.port=9090</jvmFlag>
-                                <jvmFlag>-Dcom.sun.management.jmxremote=true</jvmFlag>
-                                <jvmFlag>-Dcom.sun.management.jmxremote.port=9090</jvmFlag>
-                                <jvmFlag>-Dcom.sun.management.jmxremote.ssl=false</jvmFlag>
-                                <jvmFlag>-Dcom.sun.management.jmxremote.authenticate=false</jvmFlag>
-                                <jvmFlag>-Dcom.sun.management.jmxremote.local.only=false</jvmFlag>
-                                <jvmFlag>-Djava.rmi.server.hostname=localhost</jvmFlag>
-                            </jvmFlags>
-                        </container>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>dockerBuild</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-            </plugins>
-        </pluginManagement>
     </build>
 </project>
