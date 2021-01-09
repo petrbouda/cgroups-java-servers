@@ -76,12 +76,17 @@
             <artifactId>r2dbc</artifactId>
             <version>${testcontainers.version}</version>
         </dependency>
-
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.2.3</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.4</version>
+        </dependency>
+
 
         <dependency>
             <groupId>pbouda.jfr</groupId>
@@ -117,25 +122,6 @@
                     <to>
                         <image>jfr-test:latest</image>
                     </to>
-                    <container>
-                        <jvmFlags>
-                            <jvmFlag>-XX:+UnlockDiagnosticVMOptions</jvmFlag>
-                            <jvmFlag>-XX:+DebugNonSafepoints</jvmFlag>
-                            <jvmFlag>-Dcom.sun.management.jmxremote.rmi.port=9090</jvmFlag>
-                            <jvmFlag>-Dcom.sun.management.jmxremote=true</jvmFlag>
-                            <jvmFlag>-Dcom.sun.management.jmxremote.port=9090</jvmFlag>
-                            <jvmFlag>-Dcom.sun.management.jmxremote.ssl=false</jvmFlag>
-                            <jvmFlag>-Dcom.sun.management.jmxremote.authenticate=false</jvmFlag>
-                            <jvmFlag>-Dcom.sun.management.jmxremote.local.only=false</jvmFlag>
-                            <jvmFlag>-Djava.rmi.server.hostname=localhost</jvmFlag>
-                            <jvmFlag>-Xmx512m</jvmFlag>
-                            <jvmFlag>-Xms512m</jvmFlag>
-                            <jvmFlag>-Xmn300m</jvmFlag>
-                            <jvmFlag>-XX:+UseSerialGC</jvmFlag>
-                            <jvmFlag>-Dreactor.netty.ioWorkerCount=1</jvmFlag>
-                            <jvmFlag>-Dreactor.netty.http.server.accessLogEnabled=true</jvmFlag>
-                        </jvmFlags>
-                    </container>
                 </configuration>
                 <executions>
                     <execution>

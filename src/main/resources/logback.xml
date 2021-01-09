@@ -5,7 +5,7 @@
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <layout>
-            <pattern>Broadcaster-Server %date %green([%thread]) %highlight(%-5level) %logger{5} - %msg%n</pattern>
+            <pattern>App %date %green([%thread]) %highlight(%-5level) %logger{5} - %msg%n</pattern>
         </layout>
     </appender>
 

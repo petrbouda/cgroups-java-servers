@@ -24,6 +24,3 @@ wrk -t2 -c10 -d10m -R100 http://localhost:8080/persons/single
 
 - open Java Mission Control -> File -> Connect -> `localhost` and `9090`
 - record JFR
-
-#### Start the Load!
-
