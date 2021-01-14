@@ -713,6 +713,12 @@
         <setting name="stackTrace">true</setting>
     </event>
 
+
+    <event name="process.ContextSwitches">
+        <setting name="enabled">true</setting>
+        <setting name="period">1000 ms</setting>
+    </event>
+
     <event name="cgroups.CpuStat">
         <setting name="enabled">true</setting>
         <setting name="period">1000 ms</setting>

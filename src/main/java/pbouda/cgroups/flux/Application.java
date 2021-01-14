@@ -15,7 +15,7 @@ import org.springframework.boot.web.embedded.netty.NettyServerCustomizer;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.r2dbc.core.DatabaseClient;
-import pbouda.jfr.cgroups.recorder.CgroupsRecorder;
+import pbouda.jfr.cgroups.CgroupsRecorder;
 import pbouda.jfr.nettyhttp.JfrHttpServerMetricsRecorder;
 import reactor.netty.http.HttpResources;
 import reactor.netty.resources.LoopResources;
