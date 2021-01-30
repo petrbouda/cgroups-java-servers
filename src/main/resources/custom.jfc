@@ -714,17 +714,17 @@
     </event>
 
 
-    <event name="process.ContextSwitches">
+    <event name="linux.ContextSwitches">
         <setting name="enabled">true</setting>
         <setting name="period">1000 ms</setting>
     </event>
 
-    <event name="cgroups.CpuStat">
+    <event name="linux.CpuStat">
         <setting name="enabled">true</setting>
         <setting name="period">1000 ms</setting>
     </event>
 
-    <event name="cgroups.CfsSettings">
+    <event name="linux.CfsSettings">
         <setting name="enabled">true</setting>
         <setting name="period">everyChunk</setting>
     </event>

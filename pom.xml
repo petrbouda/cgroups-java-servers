@@ -95,7 +95,7 @@
         </dependency>
         <dependency>
             <groupId>pbouda.jfr</groupId>
-            <artifactId>cgroups-recorder</artifactId>
+            <artifactId>linux-recorder</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
